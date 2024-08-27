@@ -1,0 +1,71 @@
+Creación de Base de Datos
+Ejercicio 1: Crear una base de datos simple
+1. Crea una base de datos llamada escuela.
+CREATE DATABASE escuela;
+Ejercicio 2: Verificar la creación de la base de datos
+2. Verifica que la base de datos escuela fue creada correctamente usando el comando adecuado para
+listar todas las bases de datos.
+SHOW DATABASES;
+Ejercicio 3: Eliminar una base de datos
+3. Elimina la base de datos escuela. Luego, vuelve a verificar que no aparece en la lista de bases de
+datos.
+DROP DATABASE escuela;
+SHOW DATABASES;
+Ejercicio 4: Crear una base de datos con conjunto de caracteres específico
+4. Crea nuevamente la base de datos escuela pero esta vez usando el conjunto de caracteres utf8mb4.
+CREATE DATABASE escuela CHARACTER SET utf8mb4;
+3
+Tema 2: Creación de Tablas
+Ejercicio 5: Crear una tabla básica
+5. Crea una tabla llamada estudiantes en la base de datos escuela que tenga los siguientes campos:
+o id_estudiante (INT) como clave primaria.
+o nombre (VARCHAR(100)).
+o edad (INT).
+o fecha_nacimiento (DATE).
+CREATE TABLE estudiantes (
+id_estudiante INT PRIMARY KEY,
+nombre VARCHAR(100),
+edad INT,
+fecha_nacimiento DATE
+);
+Ejercicio 6: Ver la estructura de una tabla
+6. Usa el comando adecuado para ver la estructura de la tabla estudiantes.
+DESCRIBE estudiantes;
+Ejercicio 7: Crear una tabla con claves foráneas
+7. Crea otra tabla llamada cursos con los siguientes campos:
+o id_curso (INT) como clave primaria.
+o nombre_curso (VARCHAR(100)).
+o profesor (VARCHAR(100)). Además, crea una tabla llamada inscripciones que contenga:
+o id_estudiante (INT).
+o id_curso (INT). Define las claves foráneas que relacionen id_estudiante de la tabla estudiantes
+con id_estudiante en inscripciones y id_curso con la tabla cursos.
+CREATE TABLE cursos (
+id_curso INT PRIMARY KEY,
+nombre_curso VARCHAR(100),
+profesor VARCHAR(100)
+);
+4
+CREATE TABLE inscripciones (
+id_estudiante INT,
+id_curso INT,
+FOREIGN KEY (id_estudiante) REFERENCES estudiantes(id_estudiante),
+FOREIGN KEY (id_curso) REFERENCES cursos(id_curso)
+);
+Ejercicio 8: Crear una tabla con valores predeterminados y restricciones
+8. Crea una tabla llamada profesores que tenga los siguientes campos:
+o id_profesor (INT) como clave primaria.
+o nombre_profesor (VARCHAR(100)).
+o salario (DECIMAL(10,2)) con valor predeterminado de 1000.00.
+o fecha_contratacion (DATE) con valor predeterminado de la fecha actual.
+o edad (INT) que no acepte valores menores a 25 ni mayores a 70.
+CREATE TABLE profesores (
+id_profesor INT PRIMARY KEY,
+nombre_profesor VARCHAR(100),
+salario DECIMAL(10,2) DEFAULT 1000.00,
+fecha_contratacion DATE DEFAULT CURRENT_DATE,
+edad INT CHECK (edad BETWEEN 25 AND 70)
+);
+Ejercicio 9: Modificar una tabla
+9. Añade una nueva columna llamada telefono a la tabla profesores que almacene números de teléfono
+de tipo VARCHAR(15).
+ALTER TABLE profesores ADD telefono VARCHAR(15);
